@@ -1,32 +1,24 @@
-# Introducció a Figma
+# Clase Magistral: Estructura de Páginas Web
 
-**Figma** és l’eina de disseny i prototipat que utilitzen moltes empreses tecnològiques per crear:
+Antes de diseñar la maqueta completa del e-commerce del cliente de **EverPia**, es fundamental comprender los dos pilares esenciales de cualquier tienda online:
 
-- Interfícies d’usuari (UI)  
-- Landing pages  
-- Aplicacions mòbils  
-- Processos de compra  
+- **Landing Page**  
+- **Proceso de Checkout**
 
-Abans d’afrontar un projecte real amb un client d’**EverPia**, és essencial conèixer les eines bàsiques per treballar de manera fluida i professional.
+Esta clase aborda los conceptos clave de ambos elementos, ofreciendo una visión completa del **recorrido del usuario**, desde que llega al sitio web hasta que finaliza la compra.
 
 ---
 
-## Objectius d’aquesta tasca
+## Objetivos de la clase
 
-Aprendrem a:
-
-1. Conèixer **què és Figma** i per què és l’eina estàndard en UX/UI.  
-2. Crear un projecte i **organitzar pantalles** (frames).  
-3. Utilitzar les eines bàsiques: formes, text, colors, imatges i components.  
-4. Crear **estils** (color, tipografia).  
-5. Introduir-nos al **prototipat**: enllaços, botons i navegació bàsica.  
-6. Aplicar **bones pràctiques de disseny** per a projectes web.
+1. Entender la estructura de una **Landing Page** y su propósito principal: captar la atención del usuario y guiarlo hacia la conversión.  
+2. Analizar el **Proceso de Checkout**, sus pasos críticos y las mejores prácticas para reducir la tasa de abandono.  
+3. Comprender cómo se relacionan la Landing y el Checkout dentro de la experiencia del usuario.  
+4. Aplicar estos conocimientos en la creación de prototipos y maquetas para el proyecto de EverPia.
 
 ---
 
-## Ampliació
+## Recursos
 
-Per aprofundir més en Figma, es recomana realitzar aquest curs:  
-
-[Aprendre Figma a OpenWebinars](https://academia.openwebinars.net/portada/figma/)
-
+- **Ejemplo de Landing Page extensa:** [Romuald Fons – Monetización Webs](https://romualdfons.com/monetizacion-webs/)  
+- **Presentación completa de la clase:** *(enlace a la presentación)*
