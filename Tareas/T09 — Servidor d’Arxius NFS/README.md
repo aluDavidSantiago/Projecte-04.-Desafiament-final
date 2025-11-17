@@ -45,10 +45,3 @@ Para mostrar al cliente cómo funcionará la solución y las limitaciones actual
   [Enlace](https://documentation.ubuntu.com/server/how-to/networking/install-nfs/)  
 
 ---
-
-## 🟨 Repositorio de la Tarea
-
-Puedes acceder a la descripción completa de la tarea en el siguiente repositorio:  
-
-[Projecte04-NFS](https://github.com/SMX2n/Projecte04-NFS)
-
