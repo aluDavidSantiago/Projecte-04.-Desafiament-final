@@ -324,7 +324,9 @@ En nano, pulsa:
 
 ### 4. Reiniciar el servicio SSH para aplicar cambios
 Ejecuta:
+
 <img src="IMG/13.png" alt="..." width="400" height="auto">
+
 ```
 sudo systemctl restart ssh
 ```
@@ -446,3 +448,146 @@ Cambia el propietario y grupo del directorio .ssh y su contenido al usuario corr
 - Si los permisos no son correctos, la autenticación por clave fallará.
 - Nunca compartas la clave privada del cliente, solo la pública.
 - Verifica que el usuario en el servidor coincide con el que usas para conectarte.
+
+---
+
+## Paso 8: Probar la conexión SSH sin contraseña desde el cliente Windows
+
+### Introducción:
+Ahora verificaremos que la autenticación por clave pública funciona correctamente. Para ello, saldremos de la sesión SSH actual y volveremos a conectarnos desde el cliente Windows. Si todo está bien configurado, no pedirá la contraseña del usuario.
+
+## Instrucciones detalladas
+
+#### 1. Salir de la sesión SSH actual
+En la terminal del cliente Windows (PowerShell), escribe:
+```
+exit
+```
+Explicación:
+Cierra la sesión SSH y regresa al prompt de Windows.
+
+### 2. Volver a conectarse al servidor Ubuntu usando SSH
+Ejecuta:
+
+```
+ssh usuari@192.168.56.105
+```
+Explicación:
+Sustituye usuari por el nombre del usuario en el servidor y la IP del adaptador anfitrión.
+
+Si la clave pública está correctamente configurada en el servidor, la conexión se establecerá sin pedir contraseña.
+
+### 3. Comprobar que la conexión es exitosa
+Si entras directamente al shell del servidor sin introducir contraseña, la autenticación por clave funciona.
+Si pide contraseña, revisa:
+
+- Permisos del directorio .ssh y archivo authorized_keys.
+- Que la clave pública esté completa y sin errores.
+- Que el servicio SSH esté activo.
+
+## Notas importantes
+
+- Si falla, usa ssh -v usuari@IP para ver detalles del proceso y detectar el problema.
+- segúrate de que `PasswordAuthentication yes` esté habilitado en `sshd_config` (aunque no debería usarse si la clave funciona).
+
+---
+
+## Paso 9: Instalar el servidor SSH en el cliente Windows (para pruebas adicionales)
+
+### Introducción:
+Este paso consiste en habilitar la característica opcional Servidor OpenSSH en Windows. Aunque ya usamos el cliente SSH para conectarnos al servidor Ubuntu, instalar el servidor SSH en Windows permite realizar pruebas inversas (conexión desde Ubuntu a Windows) y completar la práctica.
+
+## Instrucciones detalladas
+
+
+### 1. Abrir Configuración en Windows
+- Haz clic en Inicio → Configuración → Aplicaciones.
+- Entrar en “Características opcionales”
+- Dentro de Aplicaciones, busca y selecciona Características opcionales.
+
+  <img src="IMG/21.png" alt="..." width="400" height="auto">
+  
+- Ver características disponibles
+- Haz clic en el botón azul Ver características.
+- Luego, en el texto azul Ver características disponibles (esto es importante para que aparezca la lista completa).
+- Buscar “Servidor OpenSSH”
+- En el buscador, escribe: Servidor OpenSSH
+- Selecciona la opción Servidor OpenSSH.
+- Agregar la característica
+- Haz clic en Agregar.
+
+  <img src="IMG/22.png" alt="..." width="400" height="auto">
+
+- Espera a que se instale (puede tardar unos minutos).
+
+  <img src="IMG/23.png" alt="..." width="400" height="auto">
+
+Notas importantes
+
+- No confundas Servidor OpenSSH con Cliente OpenSSH (este último ya está instalado por defecto en Windows 10/11).
+- Una vez instalado, el servicio SSH en Windows se puede gestionar desde Servicios o con powershell usando:
+```
+Get-Service sshd
+```
+- Si el objetivo es solo usar Windows como cliente, este paso es opcional. Pero si quieres probar conexión inversa (Ubuntu → Windows), es necesario.
+
+---
+
+## Paso 10: Configurar el servicio SSH y abrir el puerto en el firewall de Windows
+
+### Introducción:
+Ahora que instalamos el Servidor OpenSSH en el cliente Windows, debemos asegurarnos de que el servicio se inicie automáticamente y que el puerto 22 esté permitido en el firewall. Esto permitirá conexiones SSH entrantes desde el servidor Ubuntu hacia el cliente Windows.
+
+## Instrucciones detalladas
+
+### 1. Abrir PowerShell como Administrador
+Haz clic en Inicio → PowerShell → Ejecutar como administrador.
+
+  <img src="IMG/24.png" alt="..." width="400" height="auto">
+
+### 2. Configurar el servicio SSH para inicio automático
+Ejecuta:
+
+<img src="IMG/25.png" alt="..." width="400" height="auto">
+
+```
+Set-Service -Name sshd -startupType Automatic
+```
+Explicación:
+Configura el servicio sshd para que se inicie automáticamente cada vez que arranque Windows.
+
+### 3. Iniciar/reiniciar el servicio SSH
+Ejecuta:
+
+<img src="IMG/26.png" alt="..." width="400" height="auto">
+
+```
+Restart-Service sshd
+```
+Explicación:
+Reinicia el servicio SSH para aplicar la configuración y dejarlo activo.
+
+### 4. Permitir el puerto 22 en el firewall de Windows
+Ejecuta:
+
+<img src="IMG/27.png" alt="..." width="400" height="auto">
+
+```
+netsh advfirewall firewall add rule name="OpenSSH" dir=in action=allow protocol=TCP localport=22
+```
+Explicación:
+Crea una regla en el firewall para permitir tráfico entrante por el puerto 22 (SSH).
+
+## Notas importantes
+- Si el firewall bloquea el puerto 22, la conexión desde Ubuntu a Windows fallará.
+- Puedes verificar el estado del servicio con:
+```
+Get-Service sshd
+```
+- Si quieres comprobar las reglas del firewall, usa:
+```
+netsh advfirewall firewall show rule name="OpenSSH"
+```
+
+---
+
