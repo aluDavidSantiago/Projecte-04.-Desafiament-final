@@ -36,7 +36,7 @@ Todo se realizará mediante comandos para comprender el funcionamiento interno d
 
 ---
 
-##Preparacion de las maquinas y sus adaptadores
+## Preparacion de las maquinas y sus adaptadores
 Crearemos e instalaremos las maquinas en nuestro equipo teniendo en cuenta esto:
 
 <img src="IMG/1.png" alt="..." width="400" height="auto">
