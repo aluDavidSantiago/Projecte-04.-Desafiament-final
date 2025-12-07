@@ -43,14 +43,6 @@ Crearemos e instalaremos las maquinas en nuestro equipo teniendo en cuenta esto:
 
 Tanto el servidor como el cliente seran configurados con los 2 adaptadores que usaremos para esta practica, los cuales son `NAT` y `Anfitrion`.
 
-Indice:
-
-
-
-
-
-
-....
 
 Una vez las maquinas  estan instaladas iniciaremos con el server
 
