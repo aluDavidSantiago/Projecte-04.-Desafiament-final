@@ -220,6 +220,9 @@ Busca la IP asignada a la interfaz enp0s8 (modo anfitrión), normalmente algo co
 
 ### 2. Conectarse desde Windows al servidor Ubuntu usando SSH
 En el cliente Windows, abre PowerShell y ejecuta:
+
+<img src="IMG/8.5.png" alt="..." width="400" height="auto">
+
 ```
 ssh usuari@192.168.56.105
 ```
@@ -591,3 +594,188 @@ netsh advfirewall firewall show rule name="OpenSSH"
 
 ---
 
+## Paso 11: Conectarse desde el servidor Ubuntu al cliente Windows mediante SSH y verificar con hostname
+
+### Introducción:
+En este paso realizaremos la conexión SSH desde el servidor Ubuntu hacia el cliente Windows, utilizando la IP del adaptador en modo anfitrión. Una vez dentro, ejecutaremos el comando hostname para confirmar que estamos en la máquina Windows.
+
+## Instrucciones detalladas
+
+### 1. Obtener la IP del cliente Windows
+En el cliente Windows, abre PowerShell y ejecuta:
+```
+ipconfig
+```
+Explicación:
+Busca la IP asignada al adaptador en modo anfitrión (normalmente en el rango 192.168.56.x).
+
+### 2. Conectarse desde el servidor Ubuntu al cliente Windows
+En la terminal del servidor Ubuntu, ejecuta:
+
+<img src="IMG/28.png" alt="..." width="400" height="auto">
+
+```
+ssh cliente@192.168.56.107
+```
+Explicación:
+Sustituye cliente por el nombre del usuario en Windows.
+Sustituye 192.168.56.107 por la IP obtenida en el paso anterior.
+Introduce la contraseña del usuario Windows cuando la pida.
+
+### 3. Verificar la conexión con el comando hostname
+Una vez dentro del cliente Windows (desde la sesión SSH), ejecuta:
+
+<img src="IMG/29.png" alt="..." width="400" height="auto">
+
+```
+hostname
+```
+Explicación:
+Este comando mostrará el nombre del equipo Windows, algo como:
+DESKTOP-XXXXXXX
+
+Esto confirma que la conexión SSH se ha realizado correctamente.
+
+## Notas importantes
+
+- Si la conexión falla, revisa:
+
+-. Que el servicio SSH en Windows esté activo (Get-Service sshd).
+
+-. Que el puerto 22 esté permitido en el firewall.
+
+-. Que la IP sea correcta y accesible desde Ubuntu.
+
+- El usuario Windows debe tener contraseña configurada (SSH no funciona con cuentas sin contraseña).
+
+---
+
+## Paso 12: Configurar el navegador para usar el proxy SOCKS
+
+### Introduccion:
+Este paso establece un túnel seguro entre el cliente Windows y el servidor Linux, permitiendo usarlo como proxy.
+
+## Instrucciones:
+
+### 1. Abre PowerShell o CMD en modo administrador.
+Ejecuta el siguiente comando:
+
+<img src="IMG/30.png" alt="..." width="400" height="auto">
+
+```
+ssh -D 9876 usuario@192.168.56.105
+```
+Explicación:
+ssh: Inicia la conexión SSH.
+-D 9876: Crea un proxy dinámico (SOCKS) en el puerto 9876 del cliente.
+usuario@192.168.56.105: Usuario y dirección IP del servidor Linux.
+
+---
+
+## Paso 13: Configurar el proxy SOCKS en Windows
+
+### Introduccion:
+Este paso permite que las aplicaciones que usan la configuración de proxy del sistema (como navegadores) redirijan su tráfico a través del túnel SSH.
+
+## Instrucciones:
+
+### 1. Abre el Panel de Control → Opciones de Internet.
+### 2. Ve a la pestaña Conexiones y haz clic en Configuración de LAN.
+### 3. En la ventana que aparece:
+- Desmarca Detectar la configuración automáticamente (opcional, pero recomendado).
+- Marca Usar un servidor proxy para la LAN.
+- Haz clic en Opciones avanzadas.
+
+### 4. En la sección Servidores, configura:
+- Socks: 127.0.0.1
+- Puerto: 9876
+- Deja los demás campos (HTTP, Seguro, FTP) vacíos.
+
+### 5. Haz clic en Aceptar en todas las ventanas para guardar los cambios.
+
+<img src="IMG/31.png" alt="..." width="400" height="auto">
+
+## Notas importantes
+
+- El túnel SSH debe seguir activo en la terminal.
+- Esta configuración afecta a todo el sistema, por lo que cualquier aplicación que use la configuración de proxy de Windows pasará por el túnel.
+- Si necesitas volver a la configuración normal, desactiva el proxy en las mismas opciones.
+
+---
+
+## Paso 14: Verificar el túnel SSH con curl
+
+### Introduccion:
+Este paso comprueba que la conexión se está realizando a través del proxy SOCKS configurado en el puerto 9876.
+
+## Instrucciones:
+
+### 1. En el cliente Windows, abre la misma terminal donde tienes acceso a curl.exe.
+### 2. Ejecuta el siguiente comando:
+
+<img src="IMG/32.png" alt="..." width="400" height="auto">
+
+```
+curl.exe --proxy socks5://127.0.0.1:9876 https://ifconfig.me
+```
+Explicación:
+curl.exe: Herramienta para realizar peticiones HTTP desde la terminal.
+--proxy socks5://127.0.0.1:9876 : Indica que la petición debe pasar por el proxy SOCKS que creamos en el túnel SSH.
+https://ifconfig.me: Servicio que devuelve la IP pública desde la que se realiza la conexión.
+
+### 3. Si todo está correcto, el resultado será la IP pública del servidor Linux (o la red donde está el servidor), no la del cliente Windows.
+
+## Notas Importantes:
+- El túnel SSH debe seguir activo (Paso 11).
+- Si el comando falla, revisa que el puerto 9876 esté abierto y que el proxy SOCKS esté configurado correctamente.
+
+---
+
+## Paso 15: Verificar la encriptación del tráfico con Wireshark
+
+### Introduccion:
+Este paso confirma que todo el tráfico que pasa por el túnel SSH está cifrado, garantizando la seguridad de la conexión.
+
+## Instrucciones:
+
+### 1. Abrir una nueva terminal en modo administrador en el cliente Windows.
+Ejecutar el comando SSH para mantener el túnel activo sin abrir sesión interactiva:
+
+<img src="IMG/33.png" alt="..." width="400" height="auto">
+
+```
+ssh -D 9876 usuario@192.168.56.105 -N
+```
+Explicación:
+
+-N: Indica que no se ejecutarán comandos remotos, solo se mantiene el túnel.
+Deja esta ventana abierta mientras realizas la prueba.
+
+### 2. Abrir Wireshark en modo administrador.
+Seleccionar la interfaz de red que corresponde al adaptador anfitrión (en este caso, Ethernet2).
+
+<img src="IMG/34.png" alt="..." width="400" height="auto">
+
+### 3. Iniciar la captura de paquetes.
+### 4. Aplicar el filtro:
+tcp.port == 22
+
+<img src="IMG/34.png" alt="..." width="400" height="auto">
+
+Esto mostrará únicamente el tráfico SSH.
+
+### 5. Abre cualquier página en el navegador (por ejemplo, YouTube) para generar tráfico a través del túnel.
+Observa en Wireshark:
+
+<img src="IMG/35.png" alt="..." width="400" height="auto">
+
+Verás paquetes con el protocolo SSH.
+El contenido estará cifrado (no se muestran datos legibles), confirmando que la conexión es segura.
+
+Comprobación:
+Si ves tráfico SSH cifrado mientras navegas, significa que todo el tráfico está pasando por el túnel y está protegido.
+
+## Notas importantes:
+
+- El túnel SSH debe permanecer activo.
+- Si no ves tráfico SSH, revisa que el proxy SOCKS esté configurado correctamente y que el navegador esté usando la configuración.
