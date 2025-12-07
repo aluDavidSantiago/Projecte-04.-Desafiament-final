@@ -109,7 +109,7 @@ Aquí definiremos que ambas interfaces usen DHCP.
 ### 3. Configurar el YAML para DHCP en ambas interfaces
 Sustituye el contenido para dejarlo asi:
 
-<img src="IMG/3.png" alt="..." width="400" height="auto">
+<img src="IMG/3.png" alt="..." width="700" height="auto">
 
 Explicación:
 enp0s3 → interfaz NAT (acceso a Internet).
@@ -158,7 +158,7 @@ El servicio SSH (Secure Shell) permite la conexión remota segura entre sistemas
 ### 1. Instalar el servidor SSH
 Ejecuta:
 
-<img src="IMG/6.png" alt="..." width="400" height="auto">
+<img src="IMG/6.png" alt="..." width="500" height="auto">
 
 ```
 sudo apt install openssh-server -y
@@ -169,7 +169,7 @@ Instala el paquete openssh-server que habilita el servicio SSH en Ubuntu. El par
 ### 2. Verificar que el servicio está activo
 Ejecuta:
 
-<img src="IMG/7.png" alt="..." width="400" height="auto">
+<img src="IMG/7.png" alt="..." width="500" height="auto">
 
 ```
 sudo systemctl status ssh
@@ -213,7 +213,7 @@ Busca la IP asignada a la interfaz enp0s8 (modo anfitrión), normalmente algo co
 ### 2. Conectarse desde Windows al servidor Ubuntu usando SSH
 En el cliente Windows, abre PowerShell y ejecuta:
 
-<img src="IMG/8.5.png" alt="..." width="400" height="auto">
+<img src="IMG/8.5.png" alt="..." width="600" height="auto">
 
 ```
 ssh usuari@192.168.56.105
@@ -229,7 +229,7 @@ Una vez dentro del servidor (desde Windows), ejecuta:
 ```
 sudo passwd root
 ```
-<img src="IMG/9.png" alt="..." width="400" height="auto">
+<img src="IMG/9.png" alt="..." width="500" height="auto">
 
 Explicación:
 Este comando permite establecer una contraseña para el usuario root.
@@ -246,7 +246,7 @@ Regresas a la terminal de Windows.
 ### 5. Intentar conectarse como root (debe fallar)
 En PowerShell, ejecuta:
 
-<img src="IMG/11.png" alt="..." width="400" height="auto">
+<img src="IMG/11.png" alt="..." width="600" height="auto">
 
 ```
 ssh root@192.168.56.105
@@ -283,7 +283,7 @@ Usamos nano para editar el archivo. Puedes usar otro editor si prefieres (vi, vi
 ### 2. Localizar y modificar las siguientes directivas
 Según la imagen a mostrar, normalmente se ajustan estas líneas:
 
-<img src="IMG/12.png" alt="..." width="400" height="auto">
+<img src="IMG/12.png" alt="..." width="600" height="auto">
 
 ### Explicación de las líneas configuradas
 
@@ -320,7 +320,7 @@ En nano, pulsa:
 ### 4. Reiniciar el servicio SSH para aplicar cambios
 Ejecuta:
 
-<img src="IMG/13.png" alt="..." width="400" height="auto">
+<img src="IMG/13.png" alt="..." width="500" height="auto">
 
 ```
 sudo systemctl restart ssh
@@ -352,7 +352,7 @@ Asegúrate de tener el cliente OpenSSH instalado (Windows 10/11 lo incluye por d
 ### 2. Generar el par de claves SSH
 Ejecuta
 
-<img src="IMG/14.png" alt="..." width="400" height="auto">
+<img src="IMG/14.png" alt="..." width="600" height="auto">
 
 ```
 ssh-keygenMostrar 
@@ -366,7 +366,7 @@ Cuando pregunte por passphrase, pulsa ENTER (sin contraseña adicional).
 ### 3. Verificar el tipo de clave (opcional)
 Puedes comprobar el tipo con:
 
-<img src="IMG/15.png" alt="..." width="400" height="auto">
+<img src="IMG/15.png" alt="..." width="500" height="auto">
 
 ```
 type $env:USERPROFILE\.ssh\id_rsa.pub
@@ -393,7 +393,7 @@ Este paso consiste en preparar el servidor Ubuntu para aceptar autenticación me
 
 ##Instrucciones detalladas
 
-<img src="IMG/16.png" alt="..." width="400" height="auto">
+<img src="IMG/16.png" alt="..." width="600" height="auto">
 
 ### 1. Crear el directorio .ssh en el home del usuario
 ```
@@ -418,7 +418,7 @@ Abre el archivo donde se almacenarán las claves públicas autorizadas.
 
 ### 4. Pega aquí la clave pública copiada del cliente Windows (la que empieza por ssh-rsa).
 
-<img src="IMG/17.png" alt="..." width="400" height="auto">
+<img src="IMG/17.png" alt="..." width="600" height="auto">
 
 Guarda y cierra (CTRL+O, ENTER, CTRL+X).
 
@@ -436,7 +436,7 @@ chown -R usuari:usuari ~/.ssh
 Explicación:
 Cambia el propietario y grupo del directorio .ssh y su contenido al usuario correcto (usuari).
 
-<img src="IMG/18.png" alt="..." width="400" height="auto">
+<img src="IMG/18.png" alt="..." width="600" height="auto">
 
 ## Notas importantes
 
@@ -500,7 +500,7 @@ Este paso consiste en habilitar la característica opcional Servidor OpenSSH en 
 - Entrar en “Características opcionales”
 - Dentro de Aplicaciones, busca y selecciona Características opcionales.
 
-  <img src="IMG/21.png" alt="..." width="400" height="auto">
+  <img src="IMG/21.png" alt="..." width="600" height="auto">
   
 - Ver características disponibles
 - Haz clic en el botón azul Ver características.
@@ -511,11 +511,11 @@ Este paso consiste en habilitar la característica opcional Servidor OpenSSH en 
 - Agregar la característica
 - Haz clic en Agregar.
 
-  <img src="IMG/22.png" alt="..." width="400" height="auto">
+  <img src="IMG/22.png" alt="..." width="600" height="auto">
 
 - Espera a que se instale (puede tardar unos minutos).
 
-  <img src="IMG/23.png" alt="..." width="400" height="auto">
+  <img src="IMG/23.png" alt="..." width="600" height="auto">
 
 Notas importantes
 
@@ -538,12 +538,12 @@ Ahora que instalamos el Servidor OpenSSH en el cliente Windows, debemos asegurar
 ### 1. Abrir PowerShell como Administrador
 Haz clic en Inicio → PowerShell → Ejecutar como administrador.
 
-  <img src="IMG/24.png" alt="..." width="400" height="auto">
+  <img src="IMG/24.png" alt="..." width="600" height="auto">
 
 ### 2. Configurar el servicio SSH para inicio automático
 Ejecuta:
 
-<img src="IMG/25.png" alt="..." width="400" height="auto">
+<img src="IMG/25.png" alt="..." width="600" height="auto">
 
 ```
 Set-Service -Name sshd -startupType Automatic
@@ -554,7 +554,7 @@ Configura el servicio sshd para que se inicie automáticamente cada vez que arra
 ### 3. Iniciar/reiniciar el servicio SSH
 Ejecuta:
 
-<img src="IMG/26.png" alt="..." width="400" height="auto">
+<img src="IMG/26.png" alt="..." width="600" height="auto">
 
 ```
 Restart-Service sshd
@@ -565,7 +565,7 @@ Reinicia el servicio SSH para aplicar la configuración y dejarlo activo.
 ### 4. Permitir el puerto 22 en el firewall de Windows
 Ejecuta:
 
-<img src="IMG/27.png" alt="..." width="400" height="auto">
+<img src="IMG/27.png" alt="..." width="600" height="auto">
 
 ```
 netsh advfirewall firewall add rule name="OpenSSH" dir=in action=allow protocol=TCP localport=22
@@ -604,7 +604,7 @@ Busca la IP asignada al adaptador en modo anfitrión (normalmente en el rango 19
 ### 2. Conectarse desde el servidor Ubuntu al cliente Windows
 En la terminal del servidor Ubuntu, ejecuta:
 
-<img src="IMG/28.png" alt="..." width="400" height="auto">
+<img src="IMG/28.png" alt="..." width="600" height="auto">
 
 ```
 ssh cliente@192.168.56.107
@@ -617,7 +617,7 @@ Introduce la contraseña del usuario Windows cuando la pida.
 ### 3. Verificar la conexión con el comando hostname
 Una vez dentro del cliente Windows (desde la sesión SSH), ejecuta:
 
-<img src="IMG/29.png" alt="..." width="400" height="auto">
+<img src="IMG/29.png" alt="..." width="600" height="auto">
 
 ```
 hostname
@@ -652,7 +652,7 @@ Este paso establece un túnel seguro entre el cliente Windows y el servidor Linu
 ### 1. Abre PowerShell o CMD en modo administrador.
 Ejecuta el siguiente comando:
 
-<img src="IMG/30.png" alt="..." width="400" height="auto">
+<img src="IMG/30.png" alt="..." width="600" height="auto">
 
 ```
 ssh -D 9876 usuario@192.168.56.105
@@ -685,7 +685,7 @@ Este paso permite que las aplicaciones que usan la configuración de proxy del s
 
 ### 5. Haz clic en Aceptar en todas las ventanas para guardar los cambios.
 
-<img src="IMG/31.png" alt="..." width="400" height="auto">
+<img src="IMG/31.png" alt="..." width="600" height="auto">
 
 ## Notas importantes
 
@@ -705,7 +705,7 @@ Este paso comprueba que la conexión se está realizando a través del proxy SOC
 ### 1. En el cliente Windows, abre la misma terminal donde tienes acceso a curl.exe.
 ### 2. Ejecuta el siguiente comando:
 
-<img src="IMG/32.png" alt="..." width="400" height="auto">
+<img src="IMG/32.png" alt="..." width="600" height="auto">
 
 ```
 curl.exe --proxy socks5://127.0.0.1:9876 https://ifconfig.me
@@ -733,7 +733,7 @@ Este paso confirma que todo el tráfico que pasa por el túnel SSH está cifrado
 ### 1. Abrir una nueva terminal en modo administrador en el cliente Windows.
 Ejecutar el comando SSH para mantener el túnel activo sin abrir sesión interactiva:
 
-<img src="IMG/33.png" alt="..." width="400" height="auto">
+<img src="IMG/33.png" alt="..." width="600" height="auto">
 
 ```
 ssh -D 9876 usuario@192.168.56.105 -N
@@ -746,20 +746,20 @@ Deja esta ventana abierta mientras realizas la prueba.
 ### 2. Abrir Wireshark en modo administrador.
 Seleccionar la interfaz de red que corresponde al adaptador anfitrión (en este caso, Ethernet2).
 
-<img src="IMG/34.png" alt="..." width="400" height="auto">
+<img src="IMG/34.png" alt="..." width="600" height="auto">
 
 ### 3. Iniciar la captura de paquetes.
 ### 4. Aplicar el filtro:
 tcp.port == 22
 
-<img src="IMG/34.png" alt="..." width="400" height="auto">
+<img src="IMG/34.png" alt="..." width="600" height="auto">
 
 Esto mostrará únicamente el tráfico SSH.
 
 ### 5. Abre cualquier página en el navegador (por ejemplo, YouTube) para generar tráfico a través del túnel.
 Observa en Wireshark:
 
-<img src="IMG/35.png" alt="..." width="400" height="auto">
+<img src="IMG/35.png" alt="..." width="600" height="auto">
 
 Verás paquetes con el protocolo SSH.
 El contenido estará cifrado (no se muestran datos legibles), confirmando que la conexión es segura.
