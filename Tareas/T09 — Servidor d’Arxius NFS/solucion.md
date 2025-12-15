@@ -116,6 +116,9 @@ Definir la exportación en /etc/exports.
 ### Pasos detallados
 
 ### 1. Actualizar paquetes del sistema
+
+<img src="IMG/1.png" alt="..." width="800" height="auto">
+
 ```
 sudo apt update && sudo apt upgrade -y
 ```
@@ -132,6 +135,9 @@ Por qué: Garantiza que el sistema esté actualizado y estable antes de instalar
 
 
 ### 2. Instalar el servicio NFS
+
+<img src="IMG/2.png" alt="..." width="800" height="auto">
+
 ```
 sudo apt install nfs-kernel-server -y
 ```
@@ -144,6 +150,9 @@ nfs-kernel-server: Paquete que implementa el servidor NFS.
 Por qué: Este paquete es el núcleo del servicio NFS en Linux.
 
 ### 3. Crear el directorio compartido
+
+<img src="IMG/3.png" alt="..." width="800" height="auto">
+
 ```
 sudo mkdir -p /srv/nfs/projecte04
 ```
@@ -173,6 +182,9 @@ Por qué: Garantiza que cualquier cliente pueda acceder durante la prueba inicia
 
 
 ### 5. Configurar exportación en /etc/exports
+
+<img src="IMG/4.png" alt="..." width="800" height="auto">
+
 ```
 sudo nano /etc/exports
 ```
@@ -190,6 +202,9 @@ no_subtree_check: Evita comprobaciones adicionales en subdirectorios (mejora ren
 Por qué: Define qué directorio se comparte, con qué cliente y bajo qué condiciones.
 
 ### 6. Aplicar configuración y reiniciar servicio
+
+<img src="IMG/5.png" alt="..." width="800" height="auto">
+
 ```
 sudo exportfs -a
 ```
@@ -217,6 +232,8 @@ Por qué: Confirma que el directorio está compartido correctamente.
 ## Notas importantes
 
 - El firewall debe permitir tráfico NFS. Si usas ufw, añade:
+
+<img src="IMG/6.png" alt="..." width="800" height="auto">
 
 ```
 sudo ufw allow from 192.168.56.111 to any port nfs
@@ -260,6 +277,9 @@ upgrade: Instala las actualizaciones disponibles.
 Por qué: Mantener el sistema actualizado antes de instalar NFS.
 
 ### 2. Instalar soporte NFS
+
+<img src="IMG/7.png" alt="..." width="800" height="auto">
+
 ```
 sudo apt install nfs-common -y
 ```
@@ -273,6 +293,9 @@ nfs-common: Paquete que contiene las herramientas necesarias para clientes NFS.
 Por qué: Permite que el cliente se comunique con el servidor NFS.
 
 ### 3 . Crear el punto de montaje
+
+<img src="IMG/8.png" alt="..." width="800" height="auto">
+
 ```
 sudo mkdir -p /mnt/projecte04
 ```
@@ -287,6 +310,7 @@ Por qué: Necesitamos un punto de montaje para acceder al recurso compartido.
 
 
 ### 4. Comprobar conectividad con el servidor
+
 ```
 ping 192.168.56.108
 ```
@@ -299,6 +323,9 @@ ping: Envía paquetes ICMP para comprobar conectividad.
 Por qué: Verifica que el cliente puede comunicarse con el servidor.
 
 ### 5. Ver exportaciones del servidor
+
+<img src="IMG/9.png" alt="..." width="800" height="auto">
+
 ```
 showmount -e 192.168.56.108
 ```
@@ -312,6 +339,9 @@ showmount: Muestra los directorios exportados por el servidor NFS.
 Por qué: Confirma que el recurso /srv/nfs/projecte04 está disponible.
 
 ### 6. Montar el recurso NFS manualmente
+
+<img src="IMG/10.png" alt="..." width="800" height="auto">
+
 ```
 sudo mount 192.168.56.108:/srv/nfs/projecte04 /mnt/projecte04
 ```
@@ -360,6 +390,9 @@ Verificar el montaje tras reiniciar el sistema.
 
 ### Pasos detallados
 ### 1. Editar el archivo /etc/fstab
+
+<img src="IMG/11.png" alt="..." width="800" height="auto">
+
 ```
 sudo nano /etc/fstab
 ```
@@ -386,6 +419,9 @@ defaults: Opciones por defecto (lectura/escritura, sincronización, etc.).
 Por qué: Esta línea indica al sistema que debe montar el recurso NFS automáticamente al arrancar.
 
 ### 3. Probar la configuración sin reiniciar
+
+<img src="IMG/12.png" alt="..." width="800" height="auto">
+
 ```
 sudo mount -a
 ```
@@ -437,6 +473,9 @@ Verificar el contenido desde el cliente y el servidor.
 
 ### Pasos detallados
 ### 1. Crear un archivo de prueba en el cliente
+
+<img src="IMG/13.png" alt="..." width="800" height="auto">
+
 ```
 sudo touch /mnt/projecte04/test.txt
 ```
@@ -449,6 +488,9 @@ touch: Crea un archivo vacío.
 Por qué: Comprobamos que el cliente tiene permisos para crear archivos en el recurso compartido.
 
 ### 2. Escribir contenido en el archivo
+
+<img src="IMG/14.png" alt="..." width="800" height="auto">
+
 ```
 echo "Prueba NFS OK" | sudo tee /mnt/projecte04/test.txt
 ```
@@ -472,6 +514,9 @@ cat: Muestra el contenido de un archivo.
 Por qué: Confirmamos que el contenido se escribió correctamente.
 
 ### 4. Comprobar el archivo desde el servidor
+
+<img src="IMG/15.png" alt="..." width="800" height="auto">
+
 ```
 ls -l /srv/nfs/projecte04
 ```
@@ -507,6 +552,9 @@ Reaplicar la configuración y reiniciar el servicio.
 ### Pasos detallados
 
 ### 1.Ajustar permisos del directorio compartido
+
+<img src="IMG/16.png" alt="..." width="800" height="auto">
+
 ```
 sudo chmod 755 /srv/nfs/projecte04
 ```
@@ -521,6 +569,9 @@ chown root:root: Establece root como propietario y grupo del directorio.
 Por qué: Limita el acceso para evitar modificaciones por usuarios no autorizados.
 
 ### 2. Editar el archivo /etc/exports para opciones avanzadas
+
+<img src="IMG/17.png" alt="..." width="800" height="auto">
+
 ```
 sudo nano /etc/exports
 ```
@@ -538,6 +589,9 @@ no_root_squash: Permite que el usuario root del cliente mantenga privilegios en 
 Por qué: Por defecto, NFS aplica root_squash (convierte root en nobody para seguridad). Aquí lo desactivamos para permitir tareas administrativas desde el cliente.
 
 ### 3. Reaplicar configuración y reiniciar servicio
+
+<img src="IMG/18.png" alt="..." width="800" height="auto">
+
 ```
 sudo exportfs -a
 ```
@@ -566,6 +620,11 @@ Por qué: Confirma que no_root_squash y demás opciones están activas.
 - Seguridad: Usar no_root_squash implica riesgos, ya que el root del cliente tiene control total sobre el recurso. Solo debe aplicarse en entornos controlados.
 - Alternativa segura: Mantener root_squash y gestionar permisos mediante usuarios/grupos con UID/GID coincidentes en servidor y cliente.
 - Recomendación: Para producción, implementar autenticación centralizada (LDAP, Kerberos) y cifrado (NFS sobre TLS o VPN).
+
+## Verificacion de que desdepues de reiniciar el cliente se tiene acceso automaticamente:
+<img src="IMG/19.png" alt="..." width="400" height="auto">
+
+<img src="IMG/20.png" alt="..." width="800" height="auto">
 
 # CONCLUSIÓN Y RECOMENDACIONES FINALES
 
