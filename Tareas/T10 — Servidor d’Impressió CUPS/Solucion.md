@@ -68,12 +68,12 @@ Explicación:
 Añade soporte para generar impresiones en formato PDF.
 
 
-### 4. Crear usuario y añadirlo al grupo lpadmin
+### 4. Crear/modificar usuario y añadirlo al grupo lpadmin
 
 <img src="IMG/12.png" alt="..." width="600" height="auto">
 
 ```
-sudo usermod -aG lpadmin usuar
+sudo usermod -aG lpadmin usuari
 ```
 ```
 id usuari
